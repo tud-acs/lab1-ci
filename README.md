@@ -144,7 +144,7 @@ We use GitHub CI to test your code automatically. When you push a new commit to 
 
 <img src="https://raw.githubusercontent.com/tud-acs/lab1-ci/development/tutorial/imgs/github_ci.png" height="800">
 
-Be aware that the performance results from the `development` runners might not be accurate as multiple runners share hardware resources. You should need to push your code to a new branch called `benchmark` to use the `benchmark` runners who have dedicated CPU.
+Be aware that the performance results from the `development` runners might not be accurate as multiple runners share hardware resources. You need to push your code to a new branch called `benchmark` to use the `benchmark` runners who have dedicated CPU.
 
 You are allowed to modify the [CI file](https://github.com/tud-acs/lab1-ci/blob/development/.github/workflows/cmake.yml) to customize your run arguments. For instance, you can alter line 38 as shown below to measure CPU time:
 ```
@@ -300,7 +300,7 @@ You can find them here:
 ## Can I change any other files?
 
 You can do so, but it should not be necessary, unless you find any bugs.
-If you find any, please let us know, and we will try to update the baseline
+If you find any, please let us know, and we will try to update the template
 projects as soon as possible.
 
 Other than that, if you change any of the files, you should explain in your
@@ -324,11 +324,11 @@ __HIGHLY RECOMMENDED__ resources are:
     * This is another handy cheat sheet to get a quick overview of all the
     functions that you can use in OpenCL.
     
-## Help! Some bug in the baseline project is preventing me from completing the lab!
+## Help! Some bug in the template project is preventing me from completing the lab!
 
-While we have tested the deployment of the baseline project, it is possible
+While we have tested the deployment of the template project, it is possible
 that some bugs exist. Before you report this bug, try to make sure that
-it's an actual bug in the baseline and not in your own code.
+it's an actual bug in the template and not in your own code.
 
 Once you have done that, do not panic. The lab instructors are reasonable
 people. Let us know as soon as possible. We will try to fix the bug and
