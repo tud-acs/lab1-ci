@@ -145,9 +145,11 @@ We use GitHub CI to test your code automatically. When you push a new commit to 
 <img src="https://raw.githubusercontent.com/tud-acs/lab1-ci/development/tutorial/imgs/github_ci.png" height="800">
 
 Be aware that the performance results from the `development` runners might not be accurate as multiple runners share hardware resources. You need to push your code to a new branch called `benchmark` to use the `benchmark` runners who have dedicated CPU and GPU.
+
 <img src="https://raw.githubusercontent.com/tud-acs/lab1-ci/development/tutorial/imgs/github_ci_benchmark_branch.jpg" height="800">
 
 If the `benchmark` branch already exists, you need to create a pull request to push the changes in `development` branch to `benchmark` branch.
+
 <img src="https://raw.githubusercontent.com/tud-acs/lab1-ci/development/tutorial/imgs/github_ci_pull_request.png" height="800">
 
 
