@@ -8,8 +8,8 @@ Delft University of Technology.
 
 Quick version:
 
-* Download the baseline project.
-* Implement the matrix multiplication functions in the baseline project, 
+* Download the template project.
+* Implement the matrix multiplication functions in the template project, 
   using the following techniques:
   * SIMD extensions (AVX)
   * Multi-core (OpenMP)
@@ -17,6 +17,8 @@ Quick version:
 * Implement the experiments that benchmark these functions.
 * Make sure all tests pass.
 * Benchmark your solution.
+* Optimize your implementations.
+* Benchmark your optimizations.
 * Write a report.
 * Turn in your report.
 * Rejoice with the knowledge that you have gained.
@@ -61,7 +63,7 @@ asked and answered all questions you can think of already somewhere online.
 
 #### I am extremely stubborn and I do not want to use GNU/Linux!
 
-[MobaXTerm](https://mobaxterm.mobatek.net/) is a  pretty good terminal client
+[MobaXTerm](https://mobaxterm.mobatek.net/) is a pretty good terminal client
 for Windows.
 
 ## Can I fork this repository as a student?
@@ -149,6 +151,8 @@ You are allowed to modify the [CI file](https://github.com/tud-acs/lab1-ci/blob/
 run: time ./acsmatmult -a
 ```
 
+You can check the Runner status at "Your GitHub repository page" -> Settings -> Actions -> Runners. If you find a runner is down, contact TA.
+
 ## What sort of applications am I allowed to run on the Runner?
 
 * You are __only allowed to run jobs that are directly related to the course__
@@ -157,7 +161,7 @@ and your studies.
 * If you run anything unrelated, such as e.g. cryptocoin miners or video 
 renderers, __you and your group__ will, without warning:
   * immediately fail the course without any chance of resit.
-  * be revoked of access to the cluster.
+  * be revoked of access to the GitHub Runner.
   
 * If you think you do need to run something that might appear suspicious, and 
 you are not sure if your application is allowed, it is your responsibility to 
@@ -261,10 +265,10 @@ If you like IDEs, [CLion](https://www.jetbrains.com/clion/) is by far the best
 IDE out there at the moment. You can get it for free as a student, if you sign
 up with your TU Delft e-mail account.
 
-## What should I do with the baseline project?
+## What should I do with the project?
 
-You should read the baseline source code and figure out how the program works.
-The first thing you must benchmark for your report is the baseline vector
+You should read the template source code and figure out how the program works.
+The first thing you must benchmark for your report is the template vector
 multiplication (also see the [the LaTeX report template](report/template.tex)).
 
 Then, you must:
@@ -276,6 +280,8 @@ And implement experiments as well after completing each of the following:
 * Implement matrix multiplication using SIMD instructions (AVX).
 * Implement matrix multiplication on multiple cores using OpenMP.
 * Implement matrix multiplication on a GPU using OpenCL.
+
+Optimize your above three implementations (with the knowledge you obtained from the course).
 
 <!-- ## What will the TAs run to test if I've implemented everything correctly?
 
@@ -579,6 +585,140 @@ the report. You can find [this rubric here](rubric.pdf). This rubric is
 used for all labs.
 
 Remember: "Profiling the application" and "Quality of the report" count as 50% of your grade.
+
+## Can I ask ChatGPT how to implement matrix multiplication with SIMD?
+
+Sure. Here is the answer from ChatGPT (correctness not guaranteed). Remember you still need to analyze the performance and optimize your code !
+
+```cpp
+#include <iostream>
+#include <immintrin.h>
+
+void matrix_multiply(float *A, float *B, float *C, int N) {
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            __m256 c = _mm256_setzero_ps();
+            for (int k = 0; k < N; k += 8) {
+                __m256 a = _mm256_loadu_ps(&A[i * N + k]);
+                __m256 b = _mm256_loadu_ps(&B[k * N + j]);
+                c = _mm256_add_ps(c, _mm256_mul_ps(a, b));
+            }
+            float temp[8] __attribute__((aligned(32)));
+            _mm256_store_ps(temp, c);
+            C[i * N + j] = temp[0] + temp[1] + temp[2] + temp[3] + temp[4] + temp[5] + temp[6] + temp[7];
+        }
+    }
+}
+
+int main() {
+    int N = 8;
+    float A[] = { /* Your matrix A elements */ };
+    float B[] = { /* Your matrix B elements */ };
+    float C[N * N];
+
+    matrix_multiply(A, B, C, N);
+
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            std::cout << C[i * N + j] << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    return 0;
+}
+```
+
+For OpenMP:
+```cpp
+#include <iostream>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
+#include <omp.h>
+
+void matrix_multiply(const std::vector<std::vector<float>> &A,
+                     const std::vector<std::vector<float>> &B,
+                     std::vector<std::vector<float>> &C,
+                     int N) {
+    #pragma omp parallel for
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            float sum = 0.0;
+            for (int k = 0; k < N; k++) {
+                sum += A[i][k] * B[k][j];
+            }
+            C[i][j] = sum;
+        }
+    }
+}
+
+int main() {
+    int N = 8;
+    std::vector<std::vector<float>> A(N, std::vector<float>(N, 1.0));
+    std::vector<std::vector<float>> B(N, std::vector<float>(N, 1.0));
+    std::vector<std::vector<float>> C(N, std::vector<float>(N, 0.0));
+
+    matrix_multiply(A, B, C, N);
+
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            std::cout << C[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    return 0;
+}
+```
+
+For OpenCL:
+
+Create a new file called matrix_multiply.cl containing the OpenCL kernel code:
+```cpp
+__kernel void matrix_multiply(const __global float *A, const __global float *B, __global float *C, int N) {
+    int i = get_global_id(0), j = get_global_id(1);
+    float sum = 0.0f;
+    for (int k = 0; k < N; k++) { sum += A[i * N + k] * B[k * N + j]; }
+    C[i * N + j] = sum;
+}
+
+```
+Write the main C++ code to set up the OpenCL environment and execute the kernel:
+```cpp
+#include <iostream>
+#include <vector>
+#include <fstream>
+#include <CL/cl.hpp>
+
+std::string read_kernel(const std::string &filename) {
+    std::ifstream kernel_file(filename);
+    return {std::istreambuf_iterator<char>(kernel_file), std::istreambuf_iterator<char>()};
+}
+
+int main() {
+    int N = 8;
+    std::vector<float> A(N * N, 1.0), B(N * N, 1.0), C(N * N, 0.0);
+    cl::Device default_device = cl::Device::getDefault();
+    cl::Context context({default_device});
+    cl::CommandQueue queue(context, default_device);
+    std::string kernel_code = read_kernel("matrix_multiply.cl");
+    cl::Program program(context, {kernel_code.c_str(), kernel_code.length()});
+    program.build({default_device});
+    cl::Buffer buf_A(context, CL_MEM_READ_ONLY, sizeof(float) * N * N), buf_B(context, CL_MEM_READ_ONLY, sizeof(float) * N * N), buf_C(context, CL_MEM_WRITE_ONLY, sizeof(float) * N * N);
+    queue.enqueueWriteBuffer(buf_A, CL_TRUE, 0, sizeof(float) * N * N, A.data());
+    queue.enqueueWriteBuffer(buf_B, CL_TRUE, 0, sizeof(float) * N * N, B.data());
+    cl::Kernel kernel(program, "matrix_multiply");
+    kernel.setArg(0, buf_A); kernel.setArg(1, buf_B); kernel.setArg(2, buf_C); kernel.setArg(3, N);
+    queue.enqueueNDRangeKernel(kernel, cl::NullRange, cl::NDRange(N, N), cl::NullRange);
+    queue.enqueueReadBuffer(buf_C, CL_TRUE, 0, sizeof(float) * N * N, C.data());
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) { std::cout << C[i * N + j] << " "; }
+        std::cout << std::endl;
+    }
+    return 0;
+}
+```
 
 ## What happens if I plagiarize?
 
