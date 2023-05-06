@@ -144,29 +144,19 @@ We use GitHub CI to test your code automatically. When you push a new commit to 
 
 <img src="https://raw.githubusercontent.com/tud-acs/lab1-ci/development/tutorial/imgs/github_ci.png" height="800">
 
-Be aware that the performance results from the `development` runners might not be accurate as multiple runners share hardware resources. You need to push your code to a new branch called `benchmark` to use the `benchmark` runners who have dedicated CPU.
+Be aware that the performance results from the `development` runners might not be accurate as multiple runners share hardware resources. You need to push your code to a new branch called `benchmark` to use the `benchmark` runners who have dedicated CPU and GPU.
+<img src="https://raw.githubusercontent.com/tud-acs/lab1-ci/development/tutorial/imgs/github_ci_benchmark_branch.jpg" height="800">
+
+If the `benchmark` branch already exists, you need to create a pull request to push the changes in `development` branch to `benchmark` branch.
+<img src="https://raw.githubusercontent.com/tud-acs/lab1-ci/development/tutorial/imgs/github_ci_pull_request.png" height="800">
+
 
 You are allowed to modify the [CI file](https://github.com/tud-acs/lab1-ci/blob/development/.github/workflows/cmake.yml) to customize your run arguments. For instance, you can alter line 38 as shown below to measure CPU time:
 ```
 run: time ./acsmatmult -a
 ```
 
-You can check the Runner status at "Your GitHub repository page" -> Settings -> Actions -> Runners. If you find a runner is down, contact TA.
-
-## What sort of applications am I allowed to run on the Runner?
-
-* You are __only allowed to run jobs that are directly related to the course__
-and your studies.
-
-* If you run anything unrelated, such as e.g. cryptocoin miners or video 
-renderers, __you and your group__ will, without warning:
-  * immediately fail the course without any chance of resit.
-  * be revoked of access to the GitHub Runner.
-  
-* If you think you do need to run something that might appear suspicious, and 
-you are not sure if your application is allowed, it is your responsibility to 
-ask first.
-
+You can check the Runner status at "Your GitHub repository page" -> Settings -> Actions -> Runners. If you crashed a runner or find a runner is down, contact TA.
 
 ## Help! I don't have a GPU / CPU with AVX support / multicore processor.
 
@@ -208,6 +198,19 @@ please [kill the process you started](https://www.linuxfoundation.org/blog/class
 In order to run benchmarking workloads, submit them to the GPU cluster nodes as discussed in the "[How do I submit a job to one of the GPU cluster nodes?](
 #how-do-i-submit-a-job-to-one-of-the-gpu-cluster-nodes)" section below. -->
 
+## What sort of applications am I allowed to run on the Runner?
+
+* You are __only allowed to run jobs that are directly related to the course__
+and your studies.
+
+* If you run anything unrelated, such as e.g. cryptocoin miners or video 
+renderers, __you and your group__ will, without warning:
+  * immediately fail the course without any chance of resit.
+  * be revoked of access to the GitHub Runner.
+  
+* If you think you do need to run something that might appear suspicious, and 
+you are not sure if your application is allowed, it is your responsibility to 
+ask first.
 
 ## Do I have root access on the Runners / why can't I use sudo?
 
