@@ -66,7 +66,7 @@ for Windows.
 
 ## Can I fork this repository as a student?
 
-Answer: __do not fork it (publicly)__
+Answer: __do not fork it publicly__
 
 #### Why not? This is ridiculous!
 
@@ -102,32 +102,87 @@ CUDA exists. CUDA is very similar to OpenCL, although it runs well mainly on
 NVIDIA GPUs. While OpenCL enjoys less matured tooling for NVIDIA GPUs,
 more matured tools are available for other types of platforms, such as FPGAs.
 
-## Help! I don't have a GPU / CPU with AVX support / multicore processor.
+## Where to start?
+1. You should accept this assignment through GitHub Classroom. Typically, the link can be located on Brightspace, following this format: https://classroom.github.com/x/xxxxxxxx.
+2. Sign in to GitHub using your personal GitHub account.
+3. On the subsequent page, you and your team members need to create your groups using the format: "group-xx", where "xx" represents the group number found on Brightspace. For example: "group-01" and "group-50". If your group members (or TAs) already create it, then just join. If you joined a wrong group, or created a wrong team, contact TA.
+4. Accept the assignment on the subsequent page.
+5. Now you should see a page telling you __"You accepted the assignment, 2023-lab1 . We're configuring your repository now. This may take a few minutes to complete. Refresh this page to see updates."__
+6. Reload the page and click the repository link (https://github.com/tud-acs/2023-lab1-group-xx). If you encounter any issues during this step, reach out to the TA for assistance.
+7. When you see your repository, your journey begins.
 
-For this lab, all benchmarks must be performed on one node of
-[the HPC cluster](https://login.hpc.tudelft.nl/).
-It is recommended to read the cluster documentation before working on the 
-cluster.
-
-Although possible, you do not necessarily have to debug all parts of your 
-application on these machines. It is recommended to first functionally test and
-debug your application on a local machine before benchmarking on these nodes.
-
-Most modern laptops, for example, have vector extensions with multiple cores,
-so you should at least be able to implement the vector / AVX / SIMD functions 
-and the OpenMP functions. You might not have a GPU in your laptop, but still 
-most modern Intel and AMD CPUs can be used to run OpenCL kernels as well.
-
-## How do I install OpenCL on my own computer?
-
-There are numerous implementations of OpenCL. Pick one that corresponds to 
-your available hardware.
-
+## How can I compile the code on my local computer?
+1. Set up your ssh key pairs for GitHub. You can generate a ssh key pair with `ssh-keygen` on Ubuntu. After generation, upload your public key to your [GitHub setting](https://github.com/settings/keys). The public key is located at `~/.ssh/id_rsa.pub`, you can print it in terminal via `cat ~/.ssh/id_rsa.pub`
+2. Clone your repository to your computer (use ssh protocol, e.g. `https://github.com/tud-acs/2023-lab1-group-xx.git`).
+3. Install C++ complier and cmake: `sudo apt install gcc g++ cmake`.
+4. Install OpenCL. There are numerous implementations of OpenCL. Pick one that corresponds to your available hardware.
 * [Intel](https://software.intel.com/en-us/articles/opencl-drivers)
 * [AMD](https://www.amd.com/en-us/solutions/professional/hpc/opencl)
 * [NVIDIA](https://developer.nvidia.com/opencl)
+* For Ubuntu, you can quickly get OpenCL with `sudo apt install ocl-icd-opencl-dev`
+5. Find the template code in the `app` directory: `cd {2023-lab1-group-xx}/app`.
+6. Compile the template project. A CMake script has been supplied with the template code.
+```console
+mkdir debug
+cd debug
+cmake ..
+```
 
-## How do I connect to the GPU cluster?
+These commands will create a build directory called `debug`, go into that directory, and will let CMake 
+create the project files there. Note that the CMake script will exclude files
+from the build where you are supposed to implement technologies that your 
+systems doesnt have any support for (it will complain about this on the 
+command line).
+
+7. Now you can build the project with: `make`. And run it with: `./acsmatmult -h` to show help information.
+
+## The [GitHub CI](https://docs.github.com/en/actions/automating-builds-and-tests/about-continuous-integration) (continuous integration)
+
+We use GitHub CI to test your code automatically. When you push a new commit to the `development` branch, a runner will try to build & run your code. The CI traces are available on your GitHub repository page. Notice that the CI traces will be removed after one day, so record your results in time.
+
+<img src="https://raw.githubusercontent.com/tud-acs/lab1-ci/development/tutorial/imgs/github_ci.png" height="800">
+
+Be aware that the performance results from the `development` runners might not be accurate as multiple runners share hardware resources. You should need to push your code to a new branch called `benchmark` to use the `benchmark` runners who have dedicated CPU.
+
+You are allowed to modify the [CI file](https://github.com/tud-acs/lab1-ci/blob/development/.github/workflows/cmake.yml) to customize your run arguments. For instance, you can alter line 38 as shown below to measure CPU time:
+```
+run: time ./acsmatmult -a
+```
+
+## What sort of applications am I allowed to run on the Runner?
+
+* You are __only allowed to run jobs that are directly related to the course__
+and your studies.
+
+* If you run anything unrelated, such as e.g. cryptocoin miners or video 
+renderers, __you and your group__ will, without warning:
+  * immediately fail the course without any chance of resit.
+  * be revoked of access to the cluster.
+  
+* If you think you do need to run something that might appear suspicious, and 
+you are not sure if your application is allowed, it is your responsibility to 
+ask first.
+
+
+## Help! I don't have a GPU / CPU with AVX support / multicore processor.
+
+You can test your code on:
+1. [GitHub Runner](https://github.com/organizations/tud-acs/settings/actions/runners) by commiting your code to the `development` branch. 
+2. [Google Colab](https://colab.research.google.com/) provides free GPU resources (with daliy usage limit) and you can upload the this [Jupyter Notebook](https://github.com/tud-acs/lab1-ci/blob/development/Lab1.ipynb) to Colab and your source code to Google Drive to compile and run it. Please be aware that you must enable GPU to use OpenCL.
+<img src="https://raw.githubusercontent.com/tud-acs/lab1-ci/development/tutorial/imgs/colab.jpg" height="600">
+
+
+
+<!-- Although possible, you do not necessarily have to debug all parts of your 
+application on these machines. It is recommended to first functionally test and
+debug your application on a local machine before benchmarking on these nodes. -->
+
+<!-- Most modern laptops, for example, have vector extensions with multiple cores,
+so you should at least be able to implement the vector / AVX / SIMD functions 
+and the OpenMP functions. You might not have a GPU in your laptop, but still 
+most modern Intel and AMD CPUs can be used to run OpenCL kernels as well. -->
+
+<!-- ## How do I connect to the GPU cluster?
 
 Log in to the `student-linux.tudelft.nl`:
 
@@ -147,50 +202,35 @@ used to run benchmarking workloads; you may only use them to test your code with
 small example data (if your code runs for longer than a couple of seconds on the login server, 
 please [kill the process you started](https://www.linuxfoundation.org/blog/classic-sysadmin-how-to-kill-a-process-from-the-command-line/)). 
 In order to run benchmarking workloads, submit them to the GPU cluster nodes as discussed in the "[How do I submit a job to one of the GPU cluster nodes?](
-#how-do-i-submit-a-job-to-one-of-the-gpu-cluster-nodes)" section below.
+#how-do-i-submit-a-job-to-one-of-the-gpu-cluster-nodes)" section below. -->
 
 
-## What sort of applications am I allowed to run on the cluster?
-
-* You are __only allowed to run jobs that are directly related to the course__
-and your studies.
-
-* If you run anything unrelated, such as e.g. cryptocoin miners or video 
-renderers, __you and your group__ will, without warning:
-  * immediately fail the course without any chance of resit.
-  * be revoked of access to the cluster.
-  
-* If you think you do need to run something that might appear suspicious, and 
-you are not sure if your application is allowed, it is your responsibility to 
-ask first.
-
-## Do I have root access on the cluster nodes / why can't I use sudo?
+## Do I have root access on the Runners / why can't I use sudo?
 
 No, nee, nein, non, 没有, tidak, Không, Όχι, ne, hakuna, yok, 아니, لا, engin, 
 Нет, nu, nie, etc..
 
 You will not have root access or superuser rights. If you are reading tutorials
 that tell you to "sudo" something, it is __absolutely useless__ to try and
-execute that command. Please refrain from using it, as it might spam the 
-system administrator inbox.
+execute that command.
 
-## What node am I on right now?
+<!-- ## What node am I on right now?
 
 Through multiple / nested SSH sessions it could become confusing which node
 you are actually on at the moment. Use this to check out which node you are on:
 
 ```console
 hostname
-```
+``` -->
 
-## How to enable GPU support on a node?
+<!-- ## How to enable GPU support on a node?
 
 GPU support on the nodes is enabled through the use of Environment Modules.
 [Environment Modules](http://modules.sourceforge.net/) can be used to quickly
 set up your system environment to, for example, change versions of software
-packages, etc...
+packages, etc... -->
 
-### Detecting available modules
+<!-- ### Detecting available modules
 
 ```console
 module use /opt/insy/modulefiles
@@ -198,69 +238,28 @@ module avail
 ```
 
 This will detect the available Environment Modules. It is recommended to use
-the latest CUDA version for this lab.
+the latest CUDA version for this lab. -->
 
-### Loading the CUDA/OpenCL module
+<!-- ### Loading the CUDA/OpenCL module
 ```console
 module use /opt/insy/modulefiles
 module load cuda/<version>
 nvcc --version
-```
+``` -->
 
-## How do I install CMake?
+<!-- ## How do I install CMake?
 
-To build the baseline project, you need a 3.10+ version of CMake. This is available on the HPC cluster as `cmake3`.
+To build the baseline project, you need a 3.10+ version of CMake. This is available on the HPC cluster as `cmake3`. -->
 
-## How do I edit files on the command line?
+<!-- ## How do I edit files on the command line?
 
-The default cluster installation comes with `nano` and `vim`.
+The default cluster installation comes with `nano` and `vim`. -->
 
 ## Is there any good IDE to write C/C++?
 
 If you like IDEs, [CLion](https://www.jetbrains.com/clion/) is by far the best
 IDE out there at the moment. You can get it for free as a student, if you sign
 up with your TU Delft e-mail account.
-
-## Where do I get the baseline project?
-
-If you clone the Lab1 GitHub repo, you can find the baseline project in the `app` directory.
-
-```console
-git clone https://github.com/acstud/lab1.git
-cd lab1/app
-```
-
-## How do I compile and run the baseline project?
-
-A CMake script has been supplied with the baseline project.
-If you have the baseline project in some directory, and you are in that
-directory, you can run the following:
-
-```console
-mkdir debug
-cd debug
-cmake3 ..
-```
-
-These commands will create a build directory called `debug`, go into that directory, and will let CMake 
-create the project files there. Note that the CMake script will exclude files
-from the build where you are supposed to implement technologies that your 
-systems doesnt have any support for (it will complain about this on the 
-command line).
-
-Now you can build the project with:
-
-```console
-make
-```
-
-And run it with
-
-```console
-./acsmatmult -h
-```
-
-To show help information.
 
 ## What should I do with the baseline project?
 
@@ -278,13 +277,13 @@ And implement experiments as well after completing each of the following:
 * Implement matrix multiplication on multiple cores using OpenMP.
 * Implement matrix multiplication on a GPU using OpenCL.
 
-## What will the TAs run to test if I've implemented everything correctly?
+<!-- ## What will the TAs run to test if I've implemented everything correctly?
 
 `acsmatmult -t`
 
 However, be aware that we will only copy the [app/src/acsmatmult/students](app/src/acsmatmult/students)
 back into our own baseline project. So anything you change outside that
-file will not work for us. Sorry!
+file will not work for us. Sorry! -->
 
 ## Where are the files that I have to implement?
 
@@ -330,13 +329,13 @@ people. Let us know as soon as possible. We will try to fix the bug and
 if it's something really serious, we may even postpone a deadline (although
 you should never count on it).
 
-## How to get CMake to detect OpenCL on the cluster nodes?
+## How to get CMake to detect OpenCL?
 
 In the CMake build scripts called [CMakeLists.txt](app/CMakeLists.txt), some scripts 
-are included that attempt to find OpenCL support. Once you've loaded the CUDA 
-module, CMake will detect OpenCL.
+are included that attempt to find OpenCL support. Once you've installed the OpenCL
+module, CMake will detect it.
 
-## How do I submit a job to one of the GPU cluster nodes?
+<!-- ## How do I submit a job to one of the GPU cluster nodes?
 
 The cluster uses SLURM to manage the cluster resources and to schedule jobs on
 cluster nodes. You can use the `sbatch` command to submit jobs. Usually, these
@@ -365,18 +364,18 @@ Example:
 
 ```console
 sbatch --account=stud-ewi-crs-cese4010 --partition=cese4010 --qos=cese4010 --reservation=cese4010 <job script.sh>
-```
+``` -->
 
-## Where is the output?
+<!-- ## Where is the output?
 
 In a file called `slurm-<jobid>.out`. You can easily show the output using, 
 for example:
 
 ```console
 cat slurm-1234.out
-```
+``` -->
 
-## Do you have a template for a job script?
+<!-- ## Do you have a template for a job script?
 
 Allocating both CPU and GPU resurces on node.
 
@@ -418,9 +417,9 @@ If you don't know what you're doing, do not change anything.
 
 Please be aware that if you are going to run the OpenMP benchmark, you might want to
 change to `--cpus-per-task=8`. You cannot get more than 8 cores within this specific
-QoS.
+QoS. -->
 
-## I am editing on my local machine! How do I copy files to the cluster?
+<!-- ## I am editing on my local machine! How do I copy files to the cluster?
 
 Upload the sources to your home directory on `student-linux.tudelft.nl`.
 This is in sync with the HPC cluster nodes.
@@ -435,7 +434,7 @@ scp -r src <netid>@student-linux.tudelft.nl:~/path/to/your/src
 
 Then you can go into a second terminal that is logged in to an HPC cluster
 login node, build the sources there and submit a batch job to run it on a 
-node with GPU capabilities.
+node with GPU capabilities. -->
 
 ## I am getting tired of typing in the commands, this sucks!
 
@@ -467,7 +466,7 @@ By automating the development flow using scripts, the lab will be less tiring!
 
 ## Can I see a list of commands that I typed previously?
 
-Yes, use:
+Yes, use arrow keys (up and down), or:
 
 ```console
 history
@@ -476,8 +475,10 @@ history
 You could even pipe it into grep to search your history, example:
 
 ```console
-history | grep cmake3
+history | grep cmake
 ```
+
+
 
 ## Is there a template for the lab report?
 
@@ -527,7 +528,7 @@ if this doesn't show any anomalies, please refrain from cluttering your plot
 and take bigger steps.
 
 
-## How do I turn in my report / lab sources?
+## How do I turn in my report?
 
 Only submissions that follow these requirements are accepted:
 
@@ -539,15 +540,15 @@ Only submissions that follow these requirements are accepted:
   * Example: New Document by n00bk1ng_94.pdf - denied.
   * Note the use of two positions for the group number.
 
-* __All your source code has been compressed into a .zip archive__
-  * Please make sure to clean your build directories before archiving.
+<!-- * __All your source code has been compressed into a .zip archive__
+  * Please make sure to clean your build directories before archiving. -->
   
-* __Please verify your compressed code repository__ 
-  * Please make sure your to be submitted code is being compiled and run perfectly with the baseline project, you can check the [following](https://github.com/acstud/lab1/blob/master/code%20submission%20instructions.sh) instructions.
+<!-- * __Please verify your compressed code repository__ 
+  * Please make sure your to be submitted code is being compiled and run perfectly with the baseline project, you can check the [following](https://github.com/acstud/lab1/blob/master/code%20submission%20instructions.sh) instructions. -->
   
-* __The file name of your source code archive is GROUP_XX_netid0_netid1_netid2.zip__
+<!-- * __The file name of your source code archive is GROUP_XX_netid0_netid1_netid2.zip__
   * Example: GROUP_01_alee_bzhang_cwang.zip - accepted.
-  * Example: acslab1.tar.gz - denied.
+  * Example: acslab1.tar.gz - denied. -->
   
 * __They have been uploaded to Brightspace before the deadline has expired.__
   
@@ -576,6 +577,8 @@ Only submissions that follow these requirements are accepted:
 Using your report and a rubric that gives indicators for grades based on
 the report. You can find [this rubric here](rubric.pdf). This rubric is
 used for all labs.
+
+Remember: "Profiling the application" and "Quality of the report" count as 50% of your grade.
 
 ## What happens if I plagiarize?
 
