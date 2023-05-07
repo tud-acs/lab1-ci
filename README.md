@@ -107,10 +107,10 @@ more matured tools are available for other types of platforms, such as FPGAs.
 ## Where to start?
 1. You should accept this assignment through GitHub Classroom. Typically, the link can be located on Brightspace, following this format: https://classroom.github.com/x/xxxxxxxx.
 2. Sign in to GitHub using your personal GitHub account.
-3. On the subsequent page, you and your team members need to create your groups using the format: "group-xx", where "xx" represents the group number found on Brightspace. For example: "group-01" and "group-50". If your group members (or TAs) already create it, then just join. If you joined a wrong group, or created a wrong team, contact TA.
+3. On the subsequent page, you and your team members need to create your groups using the format: "group-xx", where "xx" represents the Brightspace group number. For example: "group-01" and "group-50". If your group members (or TAs) already create it, then just join. If you joined a wrong group, or created a wrong team, contact TA.
 4. Accept the assignment on the subsequent page.
 5. Now you should see a page telling you __"You accepted the assignment, 2023-lab1 . We're configuring your repository now. This may take a few minutes to complete. Refresh this page to see updates."__
-6. Reload the page and click the repository link (https://github.com/tud-acs/2023-lab1-group-xx). If you encounter any issues during this step, reach out to the TA for assistance.
+6. Refresh the page and click the repository link (https://github.com/tud-acs/2023-lab1-group-xx). If you encounter any issues during this step, reach out to the TA for assistance.
 7. When you see your repository, your journey begins.
 
 ## How can I compile the code on my local computer?
@@ -164,7 +164,7 @@ You can check the Runner status at "Your GitHub repository page" -> Settings -> 
 
 You can test your code on:
 1. [GitHub Runner](https://github.com/organizations/tud-acs/settings/actions/runners) by commiting your code to the `development` branch. 
-2. [Google Colab](https://colab.research.google.com/) provides free GPU resources (with daliy usage limit) and you can upload the this [Jupyter Notebook](https://github.com/tud-acs/lab1-ci/blob/development/Lab1.ipynb) to Colab and your source code to Google Drive to compile and run it. Please be aware that you must enable GPU to use OpenCL.
+2. [Google Colab](https://colab.research.google.com/) provides free GPU resources (with daliy usage limit) and you can upload the this [Jupyter Notebook](https://github.com/tud-acs/lab1-ci/blob/development/Lab1.ipynb) to Colab and your source code to Google Drive to build & run. Please be aware that you must enable GPU to use OpenCL.
 <img src="https://raw.githubusercontent.com/tud-acs/lab1-ci/development/tutorial/imgs/colab.jpg" height="600">
 
 
