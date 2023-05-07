@@ -158,6 +158,11 @@ You are allowed to modify the [CI file](https://github.com/tud-acs/lab1-ci/blob/
 run: time ./acsmatmult -a
 ```
 
+You are not allowed to change critical CI configurations, such as line 20: 
+```
+timeout-minutes: 5
+```
+
 You can check the Runner status at "Your GitHub repository page" -> Settings -> Actions -> Runners. If you crashed a runner or find a runner is down, contact TA.
 
 ## Help! I don't have a GPU / CPU with AVX support / multicore processor.
@@ -782,9 +787,9 @@ in terms of language.
 You can e-mail [acs-ewi@tudelft.nl](mailto:acs-ewi@tudelft.nl). 
 One of the TA's / course instructors will answer you A.S.A.P.
 
-## Can I talk face-to-face?
+<!-- ## Can I talk face-to-face?
 
-This year, the lab sessions will be carried out online using the Discord application. Please use the following link to join our [ACS Discord server](https://discord.gg/7unmM9cG33)
+This year, the lab sessions will be carried out online using the Discord application. Please use the following link to join our [ACS Discord server](https://discord.gg/7unmM9cG33) -->
 
 ## Commonly seen OpenCL error codes
 
