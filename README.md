@@ -598,8 +598,9 @@ Remember: "Profiling the application" and "Quality of the report" count as 50% o
 
 ## Can I ask ChatGPT how to implement matrix multiplication with SIMD?
 
-Sure. Here is the answer from ChatGPT (correctness not guaranteed). Remember you still need to analyze the performance and optimize your code !
+Sure. Here is the answer from ChatGPT (correctness not guaranteed). Remember you still need to analyze the performance and optimize your code!
 
+Here is the code for the SIMD implementation.
 ```cpp
 #include <iostream>
 #include <immintrin.h>
@@ -639,7 +640,7 @@ int main() {
 }
 ```
 
-For OpenMP:
+Here is the code for the OpenMP implementation.
 ```cpp
 #include <iostream>
 #include <vector>
@@ -682,9 +683,9 @@ int main() {
 }
 ```
 
-For OpenCL:
+Here is the code for the OpenCL implementation.
 
-Create a new file called matrix_multiply.cl containing the OpenCL kernel code:
+First, create a new file called matrix_multiply.cl containing the OpenCL kernel code:
 ```cpp
 __kernel void matrix_multiply(const __global float *A, const __global float *B, __global float *C, int N) {
     int i = get_global_id(0), j = get_global_id(1);
@@ -694,7 +695,7 @@ __kernel void matrix_multiply(const __global float *A, const __global float *B, 
 }
 
 ```
-Write the main C++ code to set up the OpenCL environment and execute the kernel:
+Then, write the main C++ code to set up the OpenCL environment and execute the kernel.
 ```cpp
 #include <iostream>
 #include <vector>
