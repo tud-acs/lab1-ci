@@ -142,16 +142,21 @@ command line).
 
 We use GitHub CI to test your code automatically. When you push a new commit to the `development` branch, a runner will try to build & run your code. The CI traces are available on your GitHub repository page. Notice that the CI traces will be removed after one day, so record your results in time.
 
+<div>
 <img src="https://raw.githubusercontent.com/tud-acs/lab1-ci/development/tutorial/imgs/github_ci.png" height="800">
+</div>
 
 Be aware that the performance results from the `development` runners might not be accurate as multiple runners share hardware resources. You need to push your code to a new branch called `benchmark` to use the `benchmark` runners who have dedicated CPU and GPU.
 
+<div>
 <img src="https://raw.githubusercontent.com/tud-acs/lab1-ci/development/tutorial/imgs/github_ci_benchmark_branch.jpg" height="800">
+</div>
 
 If the `benchmark` branch already exists, you need to create a pull request to push the changes in `development` branch to `benchmark` branch.
 
+<div>
 <img src="https://raw.githubusercontent.com/tud-acs/lab1-ci/development/tutorial/imgs/github_ci_pull_request.png" height="800">
-
+</div>
 
 You are allowed to modify the [CI file](https://github.com/tud-acs/lab1-ci/blob/development/.github/workflows/cmake.yml) to customize your run arguments. For instance, you can alter line 38 as shown below to measure CPU time:
 ```
@@ -170,8 +175,10 @@ You can check the Runner status at "Your GitHub repository page" -> Settings -> 
 You can test your code on:
 1. [GitHub Runner](https://github.com/organizations/tud-acs/settings/actions/runners) by commiting your code to the `development` branch. 
 2. [Google Colab](https://colab.research.google.com/) provides free GPU resources (with daliy usage limit) and you can upload the this [Jupyter Notebook](https://github.com/tud-acs/lab1-ci/blob/development/Lab1.ipynb) to Colab and your source code to Google Drive to build & run. Please be aware that you must enable GPU to use OpenCL.
-<img src="https://raw.githubusercontent.com/tud-acs/lab1-ci/development/tutorial/imgs/colab.jpg" height="600">
 
+<div>
+<img src="https://raw.githubusercontent.com/tud-acs/lab1-ci/development/tutorial/imgs/colab.jpg" height="600">
+</div>
 
 
 <!-- Although possible, you do not necessarily have to debug all parts of your 
@@ -211,7 +218,7 @@ In order to run benchmarking workloads, submit them to the GPU cluster nodes as 
 and your studies.
 
 * If you run anything unrelated, such as e.g. cryptocoin miners or video 
-renderers, __you and your group__ will, without warning:
+  renderers, __you and your group__ will, without warning:
   * immediately fail the course without any chance of resit.
   * be revoked of access to the GitHub Runner.
   
@@ -558,10 +565,10 @@ Only submissions that follow these requirements are accepted:
 
 <!-- * __All your source code has been compressed into a .zip archive__
   * Please make sure to clean your build directories before archiving. -->
-  
+
 <!-- * __Please verify your compressed code repository__ 
   * Please make sure your to be submitted code is being compiled and run perfectly with the baseline project, you can check the [following](https://github.com/acstud/lab1/blob/master/code%20submission%20instructions.sh) instructions. -->
-  
+
 <!-- * __The file name of your source code archive is GROUP_XX_netid0_netid1_netid2.zip__
   * Example: GROUP_01_alee_bzhang_cwang.zip - accepted.
   * Example: acslab1.tar.gz - denied. -->
@@ -747,17 +754,17 @@ Sometimes, for source code it is hard to determine when it is plagiarism.
 Therefore, observe the following examples:
 
 * You find code that exactly solves one of the parts of the lab. You blindly
-copy-paste the code without modifications. After we talk to you about this, 
-it seems like you cannot explain the code either. You also haven't included
-a source. 
+  copy-paste the code without modifications. After we talk to you about this, 
+  it seems like you cannot explain the code either. You also haven't included
+  a source. 
   * Our verdict: plagiarism.
   * Reason: it is not your work, so we cannot grade you
   * Consequence: case will be brought before exam committee.
   
 * You find code that exactly solves one of the parts of the lab. You blindly
-copy-paste the code without modifications. After we talk to you about this, 
-it seems like you cannot explain the code either. You have included a 
-source.
+  copy-paste the code without modifications. After we talk to you about this, 
+  it seems like you cannot explain the code either. You have included a 
+  source.
   * Our verdict: not formally plagiarism, as you have stated your source,
    but your grade is zero because you didn't learn anything.
   * Reason: it is not your work, so we cannot grade you; you will not 
@@ -766,10 +773,10 @@ source.
   this behaviour.
   
 * You find code that partially solves one of the parts of the lab. You 
-copy-paste some parts of the code that are useful to your problem and 
-apply several modifications. You can explain how the code works through
-the report and include your sources of inspiration in the report or in
-your source code.
+  copy-paste some parts of the code that are useful to your problem and 
+  apply several modifications. You can explain how the code works through
+  the report and include your sources of inspiration in the report or in
+  your source code.
   * Our verdict: well done
   * Reason: you have searched the internet for interesting solutions and
   modified them to work within your own context. You also understand how
