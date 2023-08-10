@@ -37,7 +37,7 @@ jobs:
         #module load cuda/10.2
         #module load devtoolset/11
         #cmake3 --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} -j 8
-        cmake3 --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} -j 8
+        cmake --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} -j 8
 
     - name: Test
       working-directory: ${{github.workspace}}/build
