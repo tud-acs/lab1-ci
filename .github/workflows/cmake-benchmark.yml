@@ -1,4 +1,4 @@
-name: cmake-benchmark
+name: CMake-benchmark
 
 on:
   push:
