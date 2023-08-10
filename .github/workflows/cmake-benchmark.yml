@@ -22,20 +22,20 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Load cuda
-      run: module load cuda/10.2
-      
-    - name: Load c++11
-      run: module load devtoolset/11
-
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      run: cmake3 ${{github.workspace}}/app -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+      run: |
+        module load cuda/10.2
+        module load devtoolset/11
+        cmake3 ${{github.workspace}}/app -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
 
     - name: Build
       # Build your program with the given configuration
-      run: cmake3 --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} -j 8
+      run: |
+        module load cuda/10.2
+        module load devtoolset/11
+        cmake3 --build ${{github.workspace}}/build --config ${{env.BUILD_TYPE}} -j 8
 
     - name: Test
       working-directory: ${{github.workspace}}/build
