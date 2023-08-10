@@ -23,7 +23,9 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Load modules
-      run: module load cuda/10.2 devtoolset/11
+      run: |
+        module load cuda/10.2
+        module load devtoolset/11
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
