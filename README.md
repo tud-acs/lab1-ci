@@ -115,7 +115,7 @@ more matured tools are available for other types of platforms, such as FPGAs.
 
 ## How can I compile the code on my local computer?
 1. Set up your ssh key pairs for GitHub. You can generate a ssh key pair with `ssh-keygen` on Ubuntu. After generation, upload your public key to your [GitHub setting](https://github.com/settings/keys). The public key is located at `~/.ssh/id_rsa.pub`, you can print it in terminal via `cat ~/.ssh/id_rsa.pub`
-2. Clone your repository to your computer (use ssh protocol, e.g. `https://github.com/tud-acs/2023-lab1-group-xx.git`).
+2. Clone your repository to your computer (use ssh protocol, e.g. `git@github.com:tud-acs/2023-lab1-groupxx.git`).
 3. Install C++ complier and cmake: `sudo apt install gcc g++ cmake`.
 4. Install OpenCL. There are numerous implementations of OpenCL. Pick one that corresponds to your available hardware.
 * [Intel](https://software.intel.com/en-us/articles/opencl-drivers)
