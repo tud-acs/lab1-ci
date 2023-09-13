@@ -173,7 +173,7 @@ You can check the Runner status at "Your GitHub repository page" -> Settings -> 
 ## Help! I don't have a GPU / CPU with AVX support / multicore processor.
 
 You can test your code on:
-1. [GitHub Runner](https://github.com/organizations/tud-acs/settings/actions/runners) by commiting your code to the `development` branch. 
+1. GitHub Runner by commiting your code to the `development` branch. 
 2. [Google Colab](https://colab.research.google.com/) provides free GPU resources (with daliy usage limit) and you can upload the this [Jupyter Notebook](https://github.com/tud-acs/lab1-ci/blob/development/Lab1.ipynb) to Colab and your source code to Google Drive to build & run. Please be aware that you must enable GPU to use OpenCL.
 
 <div>
