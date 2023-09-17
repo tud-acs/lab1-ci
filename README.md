@@ -61,11 +61,12 @@ It's a very good idea to get your computer to dual boot a GNU/Linux distribution
 is a good distribution for beginners with a large userbase that have probably
 asked and answered all questions you can think of already somewhere online.
 
+<!---
 #### I am extremely stubborn and I do not want to use GNU/Linux!
 
 [MobaXTerm](https://mobaxterm.mobatek.net/) is a pretty good terminal client
 for Windows.
-
+-->
 ## Can I fork this repository as a student?
 
 Answer: __do not fork it publicly__
