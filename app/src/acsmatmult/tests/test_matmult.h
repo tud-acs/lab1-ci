@@ -58,7 +58,7 @@ bool testMatMult(unsigned int repeats, bool verbose) {
     results.push_back(std::make_tuple("SIMD", multiplyMatricesSIMD(mat_a, mat_b)));
 
 #ifdef USE_OPENMP
-    results.push_back(std::make_tuple("OpenMP", multiplyMatricesOMP(mat_a, mat_b, -1)));
+    results.push_back(std::make_tuple("OpenMP", multiplyMatricesOMP(mat_a, mat_b, 1)));
 #endif
 
 #ifdef USE_OPENCL
