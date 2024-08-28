@@ -118,11 +118,13 @@ more matured tools are available for other types of platforms, such as FPGAs.
 1. Set up your ssh key pairs for GitHub. You can generate a ssh key pair with `ssh-keygen` on Ubuntu. After generation, upload your public key to your [GitHub setting](https://github.com/settings/keys). The public key is located at `~/.ssh/id_rsa.pub`, you can print it in terminal via `cat ~/.ssh/id_rsa.pub`
 2. Clone your repository to your computer (use ssh protocol, e.g. `git@github.com:tud-acs/2023-lab1-groupxx.git`).
 3. Install C++ complier and cmake: `sudo apt install gcc g++ cmake`.
-4. Install OpenCL. There are numerous implementations of OpenCL. Pick one that corresponds to your available hardware.
+4. Install OpenCL. There are numerous implementations of OpenCL. First, you need to install the corresponding driver to your available hardware.
 * [Intel](https://software.intel.com/en-us/articles/opencl-drivers)
 * [AMD](https://www.amd.com/en-us/solutions/professional/hpc/opencl)
 * [NVIDIA](https://developer.nvidia.com/opencl)
-* For Ubuntu, you can quickly get OpenCL with `sudo apt install ocl-icd-opencl-dev`
+
+Then you need to install the OpenCL header and library. For Ubuntu, you can quickly get it with `sudo apt install ocl-icd-opencl-dev`
+
 5. Find the template code in the `app` directory: `cd {2023-lab1-group-xx}/app`.
 6. Compile the template project. A CMake script has been supplied with the template code.
 ```console
