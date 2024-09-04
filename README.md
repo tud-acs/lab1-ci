@@ -1,4 +1,4 @@
-# Advanced Computing Systems 2023-2024 Lab 1 - Matrix Multiplication
+# Advanced Computing Systems 2024-2025 Lab 1 - Matrix Multiplication
 
 This repository contains all files and explanations needed to perform
 the first lab of the CESE4010 - Advanced Computing Systems course at the
